@@ -1,4 +1,4 @@
-import { pool } from "../db.js";
+import { pool } from "../src/db.js";
 
 export async function createOrder(orderItems) {
   const client = await pool.connect();

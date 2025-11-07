@@ -8,20 +8,26 @@ app.use(express.json());
 // Interaction #1: Product Listing (Client-Server)
 app.get("/products", async (req, res) => {
   try {
-    const products = await getAllProducts();
-    res.json(products);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
+    const result = await pool.query("SELECT * FROM products ORDER BY id ASC");
+    res.json(result.rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
   }
 });
 
 // Interaction #2: Checkout / Create Order (Client-Server + Transaction)
-app.post("/orders", async (req, res) => {
+app.post("/products", async (req, res) => {
+  const { name, price } = req.body;
   try {
-    const result = await createOrder(req.body.items); // items: [{product_id, quantity}]
-    res.json({ success: true, order_id: result.orderId });
-  } catch (e) {
-    res.status(400).json({ error: e.message });
+    const result = await pool.query(
+      "INSERT INTO products (name, price) VALUES ($1, $2) RETURNING *",
+      [name, price]
+    );
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Database error" });
   }
 });
 

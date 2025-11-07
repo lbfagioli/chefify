@@ -23,6 +23,8 @@ Vicente Cuevas
 # Estrctura y archivos
 * [Backend](/backend) , con las funciones y endpoints para acceder a productos y orders.
     - [repositories](/backend/repositories) , con las funciones principales para la interacción entre backend y database.
+    - [controllers](/backend/controllers), contiene las funciones que manejan la lógica de cada endpoint.
+    - [routes](/backend/routes), define las rutas HTTP y conecta cada una con sus respectivos controllers.
     - [src](/backend/src) , con las funciones y configuración para cada la db y el backend.
     - [seed.sql](/backend/seed.sql) , con las tablas y datos de ejemplo para la database.
 

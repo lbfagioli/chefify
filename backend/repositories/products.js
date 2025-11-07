@@ -1,6 +1,6 @@
-import { pool } from "../db.js";
+import { pool } from "../src/db.js";
 
-export async function getAllProducts() {
-  const result = await pool.query("SELECT id, name, price, stock FROM products");
-  return result.rows;
+export async function listProducts() {
+  const { rows } = await pool.query("SELECT * FROM products");
+  return rows;
 }
